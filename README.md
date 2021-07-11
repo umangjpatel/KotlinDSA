@@ -1,6 +1,9 @@
 # Kotlin DSA
 Various data structures and algorithms written in Kotlin programming language.
 
+## Contents
+* SinglyLinkedList
+
 ## Why Kotlin ?
 * Modern, concise and safe programming language
 * Easy to pick up, so you can build powerful applications immediately
