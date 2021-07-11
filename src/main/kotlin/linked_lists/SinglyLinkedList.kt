@@ -2,17 +2,17 @@ package linked_lists
 
 import linked_lists.SinglyNode as Node
 
-class SinglyLinkedList<T> {
+class SinglyLinkedList<T>: MutableCollection<T> {
 
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
-    private var size: Int = 0
+    override var size: Int = 0
 
     /**
      * Checks if the linked list is empty
      * Time complexity: O(1)
      */
-    fun isEmpty(): Boolean = size == 0
+    override fun isEmpty(): Boolean = size == 0
 
 
     /**
@@ -134,6 +134,143 @@ class SinglyLinkedList<T> {
         beforeNode?.next = beforeNode?.next?.next
         size--
         return result
+    }
+
+    /**
+     * Checks if an element is in the linked list.
+     * Time complexity: O(n)
+     */
+    override fun contains(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext())
+            if (iterator.next() == element)
+                return true
+        return false
+    }
+
+    /**
+     * Checks if all the elements are in the linked list.
+     * Time complexity: O(n^2)
+     */
+    override fun containsAll(elements: Collection<T>): Boolean =
+        elements.parallelStream()
+            .allMatch { item -> contains(element = item) }
+
+    /**
+     * Adds an element to the linked list.
+     * Similar to append() method.
+     * Time complexity: O(1)
+     */
+    override fun add(element: T): Boolean = this.run {
+        append(value = element)
+        return true
+    }
+
+    /**
+     * Adds all the elements to the linked list.
+     * Time complexity: O(n)
+     */
+    override fun addAll(elements: Collection<T>): Boolean {
+        elements.forEach { element -> add(element) }
+        return true
+    }
+
+
+    /**
+     * Deletes all the nodes from the linked list.
+     * Time complexity: O(1)
+     */
+    override fun clear() {
+        head = null
+        tail = null
+        size = 0
+    }
+
+    /**
+     * Removes an element from the linked list.
+     * Time complexity: O(n)
+     */
+    override fun remove(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item == element) {
+                iterator.remove()
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Removes the elements from the linked list.
+     * Time complexity: O(n^2)
+     */
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var result = false
+        elements.forEach { element -> result = remove(element) || result }
+        return result
+    }
+
+    /**
+     * Removes all the elements which are not in the linked list.
+     * Time complexity: O(m^n)
+     */
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var result = false
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            if (!elements.contains(iterator.next())) {
+                iterator.remove()
+                result = true
+            }
+        }
+        return result
+    }
+
+    override fun iterator(): MutableIterator<T> =
+        SinglyLinkedListIterator(this)
+
+    /**
+     * MutableIterator class for the linked list
+     */
+    class SinglyLinkedListIterator<T>(private val list: SinglyLinkedList<T>): MutableIterator<T> {
+
+        private var lastNode: Node<T>? = null
+        private var index: Int = 0
+
+        /**
+         * Checks if there's any element remaining in the list to traverse
+         * Time complexity: O(1)
+         */
+        override fun hasNext(): Boolean = index < list.size
+
+        /**
+         * Fetches the next node of the linked list.
+         * Time complexity: O(1)
+         */
+        override fun next(): T {
+            if (index >= list.size)
+                throw IndexOutOfBoundsException()
+            lastNode = if (index == 0) list.nodeAt(index = 0) else lastNode?.next
+            index++
+            return lastNode!!.value
+        }
+
+        /**
+         * Removes the current node of the linked list.
+         * Time complexity: O(i) where i is the index of the current node.
+         */
+        override fun remove() {
+            if (index == 1)
+                list.pop()
+            else {
+                list.removeAt(index = index - 1)
+                lastNode = list.nodeAt(index = index - 2)
+            }
+            index--
+        }
+
     }
 
 }

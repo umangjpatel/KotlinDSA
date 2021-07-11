@@ -113,5 +113,90 @@ internal class SinglyLinkedListTest {
         assertEquals(list.toString(), "3")
     }
 
+    @Test
+    fun contains() {
+    }
+
+    @Test
+    fun containsAll() {
+    }
+
+    @Test
+    fun add() {
+        val list = SinglyLinkedList<Int>()
+        list.add(element = 1)
+        assertEquals(list.toString(), "1")
+        list.add(element = 2)
+        assertEquals(list.toString(), "1 -> 2")
+        list.add(element = 3)
+        assertEquals(list.toString(), "1 -> 2 -> 3")
+    }
+
+    @Test
+    fun addAll() {
+        val list = SinglyLinkedList<Int>()
+        list.addAll(elements = listOf(1, 2, 3))
+        assertEquals(list.toString(), "1 -> 2 -> 3")
+    }
+
+    @Test
+    fun clear() {
+        val list = SinglyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        list.clear()
+        assertTrue(list.isEmpty())
+        list.append(value = 1).append(value = 2).append(value = 3)
+        assertFalse(list.isEmpty())
+        assertEquals(list.toString(), "1 -> 2 -> 3")
+        list.clear()
+        assertTrue(list.isEmpty())
+        assertEquals(list.toString(), "Empty list")
+    }
+
+    @Test
+    fun remove() {
+        val list = SinglyLinkedList<Int>()
+        assertFalse(list.remove(1))
+        list.append(value = 1)
+        assertTrue(list.remove(1))
+        assertEquals(list.toString(), "Empty list")
+        list.append(value = 1).append(value = 2).append(value = 3)
+        assertEquals(list.toString(), "1 -> 2 -> 3")
+        assertFalse(list.remove(4))
+        assertEquals(list.toString(), "1 -> 2 -> 3")
+        assertTrue(list.remove(2))
+        assertEquals(list.toString(), "1 -> 3")
+    }
+
+    @Test
+    fun removeAll() {
+        val list = SinglyLinkedList<Int>()
+        assertFalse(list.removeAll(listOf(1, 2, 3)))
+        list.addAll(listOf(1, 2))
+        assertEquals(list.toString(), "1 -> 2")
+        assertTrue(list.removeAll(listOf(1)))
+        assertEquals(list.toString(), "2")
+        list.addAll(listOf(3, 4, 5))
+        assertEquals(list.toString(), "2 -> 3 -> 4 -> 5")
+        assertTrue(list.removeAll(listOf(2, 3)))
+        assertEquals(list.toString(), "4 -> 5")
+    }
+
+    @Test
+    fun retainAll() {
+        val list = SinglyLinkedList<Int>()
+        assertEquals(list.toString(), "Empty list")
+        assertFalse(list.retainAll(listOf(1, 2, 3)))
+        list.addAll(listOf(1, 2))
+        assertEquals(list.toString(), "1 -> 2")
+        assertTrue(list.retainAll(listOf(1)))
+        assertEquals(list.toString(), "1")
+        list.addAll(listOf(2,3,4,5,6,7))
+        assertEquals(list.toString(), "1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7")
+        assertTrue(list.retainAll(listOf(3,7,6)))
+        assertEquals(list.toString(), "3 -> 6 -> 7")
+        assertTrue(list.retainAll(listOf()))
+        assertEquals(list.toString(), "Empty list")
+    }
 
 }
