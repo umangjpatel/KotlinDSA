@@ -1,4 +1,6 @@
-# Kotlin DSA
+# Kotlin DSA 
+![Build status](https://github.com/umangjpatel/KotlinDSA/actions/workflows/build.yml/badge.svg)
+
 Various data structures and algorithms written in Kotlin programming language.
 
 ## Contents
