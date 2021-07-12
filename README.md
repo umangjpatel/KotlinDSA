@@ -4,7 +4,8 @@
 Various data structures and algorithms written in Kotlin programming language.
 
 ## Contents
-* SinglyLinkedList
+* LinkedList
+* Stack
 
 ## Why Kotlin ?
 * Modern, concise and safe programming language
