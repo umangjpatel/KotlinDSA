@@ -2,12 +2,15 @@ package trees
 
 typealias Traverser<T> = (T) -> Unit
 
-class BinaryNode<T>(val value: T) {
+class BinaryNode<T>(var value: T) {
 
     // Tracks the left child node
     var leftChild: BinaryNode<T>? = null
     // Tracks the right child node
     var rightChild: BinaryNode<T>? = null
+
+    val min: BinaryNode<T>
+        get() = leftChild?.min ?: this
 
     /**
      * Represents the binary tree in string format.
