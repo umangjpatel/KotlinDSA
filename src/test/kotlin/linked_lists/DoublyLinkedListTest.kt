@@ -257,6 +257,4 @@ internal class DoublyLinkedListTest {
         assertTrue(list.retainAll(listOf()))
         assertEquals(list.toString(), "Empty list")
     }
-
-
 }
