@@ -2,16 +2,16 @@ package linked_lists
 
 import linked_lists.DoublyNode as Node
 
-class DoublyLinkedList<T> {
+class DoublyLinkedList<T> : MutableCollection<T> {
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
-    private var size: Int = 0
+    override var size: Int = 0
 
     /**
      * Checks if the linked list is empty or not.
      * Time complexity: O(1)
      */
-    fun isEmpty(): Boolean = size == 0
+    override fun isEmpty(): Boolean = size == 0
 
     /**
      * Represents the linked list in a string format
@@ -126,5 +126,141 @@ class DoublyLinkedList<T> {
         prevNode?.next?.prev = prevNode
         size--
         return result
+    }
+
+    /**
+     * Checks if there's a node in the linked list with the provided value.
+     * Time complexity: O(n)
+     */
+    override fun contains(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item == element)
+                return true
+        }
+        return false
+    }
+
+    /**
+     * Checks if the linked list contains all the nodes provided.
+     * Time complexity: O(n^2)
+     */
+    override fun containsAll(elements: Collection<T>): Boolean =
+        elements.parallelStream()
+            .allMatch { element -> contains(element = element) }
+
+    /**
+     * Adds an element in the linked list.
+     * Time complexity: O(1)
+     */
+    override fun add(element: T): Boolean {
+        append(value = element)
+        return true
+    }
+
+    /**
+     * Adds the elements in the linked list.
+     * Time complexity: O(n) where n is the number of elements to be added.
+     */
+    override fun addAll(elements: Collection<T>): Boolean =
+        elements.all { element -> add(element = element) }
+
+    /**
+     * Deletes all the nodes in the linked list.
+     * Time complexity: O(1)
+     */
+    override fun clear() {
+        head = null
+        tail = null
+        size = 0
+    }
+
+    /**
+     * Removes a specific element from the linked list.
+     * Time complexity: O(n)
+     */
+    override fun remove(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (item == element) {
+                iterator.remove()
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * Remove the particular elements from the linked list.
+     * Return true if any requested element gets deleted, else return false.
+     * Time complexity: O(m^n)
+     *      where m is the number of elements to be deleted
+     *      and n is the size of the linked list
+     */
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var result = false
+        elements.forEach { element -> result = remove(element) || result }
+        return result
+    }
+
+    /**
+     * Removes all the elements in the linked list not presented in the provided list.
+     * Time complexity: O(m^n)
+     *          where m is the number of elements provided
+     *          and n is the size of the linked list
+     */
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var result = false
+        val iterator = iterator()
+        while (iterator.hasNext()) {
+            if (!elements.contains(iterator.next())) {
+                iterator.remove()
+                result = true
+            }
+        }
+        return result
+    }
+
+    override fun iterator(): MutableIterator<T> = DoublyLinkedListIterator(this)
+
+    class DoublyLinkedListIterator<T>(private val list: DoublyLinkedList<T>) : MutableIterator<T> {
+
+        private var lastNode: Node<T>? = null
+        private var index: Int = 0
+
+        /**
+         * Check if there are any nodes remaining in the linked list.
+         * Time complexity: O(1)
+         */
+        override fun hasNext(): Boolean = index < list.size
+
+
+        /**
+         * Return the value of the next node in the linked list.
+         * Time complexity: O(1)
+         */
+        override fun next(): T {
+            if (index >= list.size)
+                throw IndexOutOfBoundsException()
+            lastNode = if (index == 0) list.nodeAt(index = 0) else lastNode?.next
+            index++
+            return lastNode!!.value
+        }
+
+        /**
+         * Removes the current node in the linked list.
+         * Time complexity: O(i) where i is the current index.
+         */
+        override fun remove() {
+            if (index == 1) list.pop()
+            else {
+                list.removeAt(index = index - 1)
+                lastNode = list.nodeAt(index = index - 2)
+            }
+            index--
+        }
+
     }
 }

@@ -119,7 +119,144 @@ internal class DoublyLinkedListTest {
         assertEquals(list.toString(), "1")
         assertEquals(list.removeAt(index = 0), 1)
         assertEquals(list.toString(), "Empty list")
-
-
     }
+
+    @Test
+    fun contains() {
+        val list = DoublyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        assertEquals(list.toString(), "Empty list")
+        assertFalse(list.contains(1))
+        list.addAll(listOf(1, 2, 3, 4))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4")
+        assertTrue(list.contains(1))
+        assertTrue(list.contains(2))
+        assertTrue(list.contains(3))
+        assertTrue(list.contains(4))
+        assertFalse(list.contains(5))
+    }
+
+    @Test
+    fun containsAll() {
+        val list = DoublyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        assertEquals(list.toString(), "Empty list")
+        assertFalse(list.contains(1))
+        list.addAll(listOf(1, 2, 3, 4))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4")
+        assertTrue(list.containsAll(listOf(1)))
+        assertTrue(list.containsAll(listOf(2, 1)))
+        assertTrue(list.containsAll(listOf(1, 2)))
+        assertTrue(list.containsAll(listOf(3, 2, 1)))
+        assertTrue(list.containsAll(listOf(1, 2, 3)))
+        assertTrue(list.containsAll(listOf(4, 2, 3, 1)))
+        assertTrue(list.containsAll(listOf(1, 2, 3, 4)))
+        assertFalse(list.containsAll(listOf(1, 2, 4, 5)))
+        assertFalse(list.containsAll(listOf(4, 5, 6, 7)))
+    }
+
+    @Test
+    fun add() {
+        val list = DoublyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        assertEquals(list.toString(), "Empty list")
+        list.add(1)
+        assertEquals(list.toString(), "1")
+        list.add(2)
+        assertEquals(list.toString(), "1 <-> 2")
+    }
+
+    @Test
+    fun addAll() {
+        val list = DoublyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        assertEquals(list.toString(), "Empty list")
+        list.addAll(listOf(1, 2, 3, 4))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4")
+    }
+
+    @Test
+    fun clear() {
+        val list = DoublyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        list.addAll(listOf(1, 2, 3))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3")
+        list.clear()
+        assertEquals(list.toString(), "Empty list")
+    }
+
+    @Test
+    fun remove() {
+        val list = DoublyLinkedList<Int>()
+        assertTrue(list.isEmpty())
+        assertEquals(list.toString(), "Empty list")
+        assertFalse(list.remove(element = 1))
+        list.addAll(listOf(1, 2, 3, 4))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4")
+        assertTrue(list.remove(element = 4))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3")
+        assertFalse(list.remove(element = 4))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3")
+        assertTrue(list.remove(element = 2))
+        assertEquals(list.toString(), "1 <-> 3")
+        assertTrue(list.remove(element = 1))
+        assertEquals(list.toString(), "3")
+        assertTrue(list.remove(element = 3))
+        assertEquals(list.toString(), "Empty list")
+        assertFalse(list.remove(element = 3))
+        assertEquals(list.toString(), "Empty list")
+    }
+
+    @Test
+    fun iterator() {
+        val list1 = DoublyLinkedList<Int>()
+        list1.addAll(listOf(1, 2, 3))
+        assertEquals(list1.toString().replace(" <-> ", "\n"), "1\n2\n3")
+        val list2 = DoublyLinkedList<Int>().apply { addAll(listOf(1, 2, 3)) }
+        assertEquals(buildString { for (item in list2) appendLine(item) },
+            list1.toString().replace(" <-> ", "\n") + "\n")
+    }
+
+    @Test
+    fun removeAll() {
+        val list = DoublyLinkedList<Int>()
+        assertEquals(list.toString(), "Empty list")
+        assertTrue(list.isEmpty())
+        assertFalse(list.removeAll(listOf()))
+        assertEquals(list.toString(), "Empty list")
+        list.addAll(listOf(1, 2, 3, 4, 5, 6))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6")
+        assertFalse(list.removeAll(listOf(7)))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6")
+        assertTrue(list.removeAll(listOf(3)))
+        assertEquals(list.toString(), "1 <-> 2 <-> 4 <-> 5 <-> 6")
+        assertTrue(list.removeAll(listOf(2, 3)))
+        assertEquals(list.toString(), "1 <-> 4 <-> 5 <-> 6")
+        assertTrue(list.removeAll(listOf(4, 5)))
+        assertEquals(list.toString(), "1 <-> 6")
+        assertTrue(list.removeAll(listOf(1)))
+        assertEquals(list.toString(), "6")
+        assertTrue(list.removeAll(listOf(6)))
+        assertEquals(list.toString(), "Empty list")
+        assertTrue(list.isEmpty())
+    }
+
+    @Test
+    fun retainAll() {
+        val list = DoublyLinkedList<Int>()
+        assertEquals(list.toString(), "Empty list")
+        assertFalse(list.retainAll(listOf(1, 2, 3)))
+        list.addAll(listOf(1, 2))
+        assertEquals(list.toString(), "1 <-> 2")
+        assertTrue(list.retainAll(listOf(1)))
+        assertEquals(list.toString(), "1")
+        list.addAll(listOf(2,3,4,5,6,7))
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6 <-> 7")
+        assertTrue(list.retainAll(listOf(3,7,6)))
+        assertEquals(list.toString(), "3 <-> 6 <-> 7")
+        assertTrue(list.retainAll(listOf()))
+        assertEquals(list.toString(), "Empty list")
+    }
+
+
 }
