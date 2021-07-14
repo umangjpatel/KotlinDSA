@@ -39,10 +39,11 @@ class DoublyLinkedList<T> {
      * Time complexity: O(1)
      */
     fun append(value: T): DoublyLinkedList<T> {
-        if (tail == null)
+        if (isEmpty())
             return push(value = value)
-        tail?.next = Node(value = value, prev = tail)
-        tail = tail?.next
+        val newNode = Node(value = value, prev = tail)
+        tail?.next = newNode
+        tail = newNode
         size++
         return this
     }
@@ -78,5 +79,52 @@ class DoublyLinkedList<T> {
         afterNode?.next = newNode
         size++
         return this
+    }
+
+    /**
+     * Deletes and returns the value at the head of the linked list.
+     * Time complexity: O(1).
+     */
+    fun pop(): T? {
+        if (!isEmpty()) size-- else return null
+        val result = head?.value
+        head = head?.next
+        head?.prev = null
+        if (isEmpty())
+            tail = null
+        return result
+    }
+
+    /**
+     * Deletes and returns the value at the tail of the linked list.
+     * Time complexity: O(1).
+     */
+    fun removeLast(): T? {
+        if (head?.next == null)
+            return pop()
+        val result = tail?.value
+        val prevNode = tail?.prev
+        tail?.prev = null
+        prevNode?.next = null
+        tail = prevNode
+        size--
+        return result
+    }
+
+    /**
+     * Removes an element from a particular index in the linked list.
+     * Time complexity (Let i be the requested index):
+     *      - If i == 0 or i == size - 1, O(1)
+     *      - Else, O(i)
+     */
+    fun removeAt(index: Int): T? {
+        if (index < 0 || index >= size) return null
+        if (index == 0) return pop() else if (index == size - 1) return removeLast()
+        val prevNode = nodeAt(index = index - 1)
+        val result = prevNode?.next?.value
+        prevNode?.next = prevNode?.next?.next
+        prevNode?.next?.prev = prevNode
+        size--
+        return result
     }
 }
