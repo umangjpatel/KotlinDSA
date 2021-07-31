@@ -18,6 +18,7 @@ Coming soon
 * Share my knowledge with others
 
 ## Why create this repo ?
+* Explain concepts visually
 * Share my knowledge with others
 * Compiling resources for coding interviews
 * Follows common industrial-practices like CI/CD, tests, documentation, etc.
