@@ -1,6 +1,8 @@
 package basic.linkedlists
 
-class LinkedList<T> : MutableCollection<T> {
+import basic.linkedlists.SinglyNode as Node
+
+class SinglyLinkedList<T> : MutableCollection<T> {
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
     override var size: Int = 0
@@ -12,7 +14,7 @@ class LinkedList<T> : MutableCollection<T> {
         if (isEmpty()) "Empty list"
         else head.toString()
 
-    fun push(value: T): LinkedList<T> {
+    fun push(value: T): SinglyLinkedList<T> {
         head = Node(value = value, next = head)
         if (tail == null)
             tail = head
@@ -20,7 +22,7 @@ class LinkedList<T> : MutableCollection<T> {
         return this
     }
 
-    fun append(value: T): LinkedList<T> {
+    fun append(value: T): SinglyLinkedList<T> {
         if (isEmpty()) return push(value = value)
         tail?.next = Node(value = value)
         tail = tail?.next
@@ -39,7 +41,7 @@ class LinkedList<T> : MutableCollection<T> {
         return currentNode
     }
 
-    fun insertAfter(index: Int, value: T): LinkedList<T> {
+    fun insertAfter(index: Int, value: T): SinglyLinkedList<T> {
         val afterNode = nodeAt(index = index) ?: return this
         afterNode.next = Node(value = value, next = afterNode.next)
         if (afterNode == tail) tail = afterNode.next
@@ -130,7 +132,7 @@ class LinkedList<T> : MutableCollection<T> {
 
     override fun iterator(): MutableIterator<T> = LinkedListIterator(this)
 
-    class LinkedListIterator<T>(private val list: LinkedList<T>) : MutableIterator<T> {
+    class LinkedListIterator<T>(private val list: SinglyLinkedList<T>) : MutableIterator<T> {
 
         private var index: Int = 0
         private var lastNode: Node<T>? = null
