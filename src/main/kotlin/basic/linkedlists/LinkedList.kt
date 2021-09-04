@@ -1,11 +1,12 @@
 package basic.linkedlists
 
-class LinkedList<T> {
+class LinkedList<T> : MutableCollection<T> {
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
-    private var size: Int = 0
+    override var size: Int = 0
+        private set
 
-    fun isEmpty(): Boolean = size == 0
+    override fun isEmpty(): Boolean = size == 0
 
     override fun toString(): String =
         if (isEmpty()) "Empty list"
@@ -80,4 +81,77 @@ class LinkedList<T> {
         return result
     }
 
+    override fun add(element: T): Boolean {
+        this.append(value = element)
+        return true
+    }
+
+    override fun addAll(elements: Collection<T>): Boolean = elements.all { this.add(element = it) }
+
+    override fun clear() {
+        head = null
+        tail = null
+        size = 0
+    }
+
+    override fun remove(element: T): Boolean {
+        val iterator = iterator()
+        while (iterator.hasNext())
+            if (iterator.next() == element) {
+                iterator.remove()
+                return true
+            }
+        return false
+    }
+
+    override fun removeAll(elements: Collection<T>): Boolean {
+        var result = false
+        for (item in elements)
+            result = remove(item) || result
+        return result
+    }
+
+    override fun retainAll(elements: Collection<T>): Boolean {
+        var result = false
+        val iterator = this.iterator()
+        while (iterator.hasNext()) {
+            val item = iterator.next()
+            if (!elements.contains(item)) {
+                iterator.remove()
+                result = true
+            }
+        }
+        return result
+    }
+
+    override fun contains(element: T): Boolean = this.any { it == element }
+
+    override fun containsAll(elements: Collection<T>): Boolean = elements.all { this.contains(it) }
+
+    override fun iterator(): MutableIterator<T> = LinkedListIterator(this)
+
+    class LinkedListIterator<T>(private val list: LinkedList<T>) : MutableIterator<T> {
+
+        private var index: Int = 0
+        private var lastNode: Node<T>? = null
+
+        override fun hasNext(): Boolean = index < list.size
+
+        override fun next(): T {
+            if (index >= list.size) throw ArrayIndexOutOfBoundsException()
+            lastNode = if (index == 0) list.nodeAt(index = 0) else lastNode?.next
+            index++
+            return lastNode!!.value
+        }
+
+        override fun remove() {
+            if (index == 1) list.pop()
+            else {
+                val prevNode = list.nodeAt(index = index - 2)
+                list.removeAt(index = index - 1)
+                lastNode = prevNode
+            }
+            index--
+        }
+    }
 }
