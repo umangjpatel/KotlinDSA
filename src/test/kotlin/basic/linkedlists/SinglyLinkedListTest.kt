@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 
-internal class LinkedListTest {
+internal class SinglyLinkedListTest {
 
     @Test
     fun isEmpty() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         assertTrue(list.isEmpty())
         list.push(value = 1)
         assertFalse(list.isEmpty())
@@ -16,7 +16,7 @@ internal class LinkedListTest {
 
     @Test
     fun testToString() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         assertEquals(list.toString(), "Empty list")
         list.push(value = 1).push(value = 2)
         assertEquals(list.toString(), "2 -> 1")
@@ -24,7 +24,7 @@ internal class LinkedListTest {
 
     @Test
     fun push() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         assertEquals(list.toString(), "Empty list")
         assertTrue(list.isEmpty())
         list.push(value = 1).push(value = 2)
@@ -34,7 +34,7 @@ internal class LinkedListTest {
 
     @Test
     fun append() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         assertTrue(list.isEmpty())
         assertEquals(list.toString(), "Empty list")
         list.append(value = 1)
@@ -46,7 +46,7 @@ internal class LinkedListTest {
 
     @Test
     fun nodeAt() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         assertTrue(list.isEmpty())
         assertNull(list.nodeAt(index = -1))
         assertNull(list.nodeAt(index = 0))
@@ -67,7 +67,7 @@ internal class LinkedListTest {
 
     @Test
     fun insertAfter() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.insertAfter(-1, 1)
         assertEquals(list.toString(), "Empty list")
         list.append(value = 0)
@@ -86,7 +86,7 @@ internal class LinkedListTest {
 
     @Test
     fun pop() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         assertNull(list.pop())
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
@@ -101,7 +101,7 @@ internal class LinkedListTest {
 
     @Test
     fun removeLast() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         assertEquals(list.removeLast(), 3)
@@ -115,7 +115,7 @@ internal class LinkedListTest {
 
     @Test
     fun removeAt() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3).append(value = 4)
         assertEquals(list.toString(), "1 -> 2 -> 3 -> 4")
         assertEquals(list.removeAt(index = 2), 3)
@@ -132,7 +132,7 @@ internal class LinkedListTest {
 
     @Test
     fun iterator() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         assertEquals(buildString {
@@ -142,7 +142,7 @@ internal class LinkedListTest {
 
     @Test
     fun removeIterator() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         val iterator = list.iterator()
@@ -153,7 +153,7 @@ internal class LinkedListTest {
 
     @Test
     fun contains() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         assertTrue(list.contains(1))
@@ -164,7 +164,7 @@ internal class LinkedListTest {
 
     @Test
     fun containsAll() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         val testList1 = listOf(1, 2, 3)
@@ -175,7 +175,7 @@ internal class LinkedListTest {
 
     @Test
     fun remove() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         assertTrue(list.remove(1))
@@ -191,7 +191,7 @@ internal class LinkedListTest {
 
     @Test
     fun removeAll() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         list.removeAll(listOf(2))
@@ -205,7 +205,7 @@ internal class LinkedListTest {
 
     @Test
     fun retainAll() {
-        val list = LinkedList<Int>()
+        val list = SinglyLinkedList<Int>()
         list.append(value = 1).append(value = 2).append(value = 3)
         assertEquals(list.toString(), "1 -> 2 -> 3")
         list.retainAll(listOf(3, 1))
