@@ -156,5 +156,35 @@ class DoublyLinkedList<T> : MutableCollection<T> {
         return result
     }
 
+    fun printReverse(): String =
+        if (isEmpty()) "Empty list"
+        else printReverse(head)
+
+    private fun printReverse(node: Node<T>?): String =
+        if (node?.next == null) "${node?.value}"
+        else "${printReverse(node.next)} <-> ${node.value}"
+
+    fun getMiddleNode(): Node<T>? {
+        var (slow, fast) = nodeAt(index = 0) to nodeAt(index = 0)
+        while (fast != null) {
+            fast = fast.next
+            if (fast != null) {
+                fast = fast.next
+                slow = slow?.next
+            }
+        }
+        return slow
+    }
+
+    fun reverse(): DoublyLinkedList<T> {
+        val list = DoublyLinkedList<T>()
+        var node = nodeAt(index = 0)
+        while (node != null) {
+            list.push(value = node.value)
+            node = node.next
+        }
+        return list
+    }
+
 
 }
