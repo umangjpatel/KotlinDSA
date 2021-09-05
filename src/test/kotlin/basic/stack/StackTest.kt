@@ -115,4 +115,25 @@ internal class StackTest {
             appendLine("-----------")
         })
     }
+
+    @Test
+    fun testCreate() {
+        val stack1 = StackImpl<Int>()
+        stack1.push(value = 1)
+        stack1.push(value = 2)
+        stack1.push(value = 3)
+        val stack2 = StackImpl.create(listOf(1, 2, 3))
+        assertEquals(stack1.toString(), stack2.toString())
+    }
+
+    @Test
+    fun stackOf() {
+        val stack1 = StackImpl<Int>()
+        stack1.push(value = 1)
+        stack1.push(value = 2)
+        stack1.push(value = 3)
+        val stack2 = StackImpl.create(listOf(1, 2, 3))
+        val stack3 = StackImpl.stackOf(1, 2, 3)
+        assertEquals(stack1.toString(), stack2.toString(), stack3.toString())
+    }
 }

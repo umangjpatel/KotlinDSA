@@ -23,4 +23,12 @@ class StackImpl<T>: Stack<T> {
             appendLine("-----------")
         }
 
+    companion object {
+        fun <T> create(items: Iterable<T>): StackImpl<T> =
+            StackImpl<T>().apply { items.forEach { this.push(value = it) } }
+
+        fun <T> stackOf(vararg items: T): StackImpl<T> =
+            create(items.asList())
+    }
+
 }
