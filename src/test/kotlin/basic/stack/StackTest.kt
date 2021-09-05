@@ -1,5 +1,6 @@
 package basic.stack
 
+import basic.linkedlists.SinglyLinkedList
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -135,5 +136,24 @@ internal class StackTest {
         val stack2 = StackImpl.create(listOf(1, 2, 3))
         val stack3 = StackImpl.stackOf(1, 2, 3)
         assertEquals(stack1.toString(), stack2.toString(), stack3.toString())
+    }
+
+    @Test
+    fun printReverseSinglyLinkedList() {
+        val list = SinglyLinkedList<Int>()
+        list.append(value = 1).append(value = 2).append(value = 3)
+        assertEquals(list.toString(), "1 -> 2 -> 3")
+        assertEquals(list.printReverse(), StackImpl.Challenges.printInReverse(list))
+    }
+
+    @Test
+    fun validateParentheses() {
+        assertTrue(StackImpl.Challenges.validateParentheses("(())"))
+        assertTrue(StackImpl.Challenges.validateParentheses("()"))
+        assertFalse(StackImpl.Challenges.validateParentheses(")()"))
+        assertFalse(StackImpl.Challenges.validateParentheses("())("))
+        assertFalse(StackImpl.Challenges.validateParentheses("("))
+        assertFalse(StackImpl.Challenges.validateParentheses(")"))
+        assertFalse(StackImpl.Challenges.validateParentheses(")(()"))
     }
 }
