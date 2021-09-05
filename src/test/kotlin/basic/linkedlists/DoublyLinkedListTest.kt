@@ -214,4 +214,33 @@ internal class DoublyLinkedListTest {
         assertEquals(list.toString(), "Empty list")
         assertTrue(list.isEmpty())
     }
+
+    @Test
+    fun printReverse() {
+        val list = DoublyLinkedList<Int>()
+        list.append(value = 1).append(value = 2).append(value = 3)
+        assertEquals(list.toString(), "1 <-> 2 <-> 3")
+        assertEquals(list.printReverse(), "3 <-> 2 <-> 1")
+    }
+
+
+
+    @Test
+    fun getMiddleNode() {
+        val list = DoublyLinkedList<Int>()
+        list.append(value = 1).append(value = 2).append(value = 3)
+        assertEquals(list.toString(), "1 <-> 2 <-> 3")
+        assertEquals(list.getMiddleNode()?.value, 2)
+        list.append(value = 4)
+        assertEquals(list.toString(), "1 <-> 2 <-> 3 <-> 4")
+        assertEquals(list.getMiddleNode()?.value, 3)
+    }
+
+    @Test
+    fun reverse() {
+        val list = DoublyLinkedList<Int>()
+        list.append(value = 1).append(value = 2).append(value = 3)
+        assertEquals(list.toString(), "1 <-> 2 <-> 3")
+        assertEquals(list.reverse().toString(), "3 <-> 2 <-> 1")
+    }
 }

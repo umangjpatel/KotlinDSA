@@ -156,4 +156,35 @@ class SinglyLinkedList<T> : MutableCollection<T> {
             index--
         }
     }
+
+    fun printReverse(): String =
+        if (isEmpty()) "Empty list"
+        else printReverse(head)
+
+    private fun printReverse(node: Node<T>?): String =
+        if (node?.next == null) "${node?.value}"
+        else "${printReverse(node.next)} -> ${node.value}"
+
+    fun getMiddleNode(): Node<T>? {
+        var (slow, fast) = head to head
+        while (fast != null) {
+            fast = fast.next
+            if (fast != null) {
+                fast = fast.next
+                slow = slow?.next
+            }
+        }
+        return slow
+    }
+
+    fun reverse(): SinglyLinkedList<T> {
+        var node = nodeAt(index = 0)
+        val list = SinglyLinkedList<T>()
+        while (node != null) {
+            list.push(value = node.value)
+            node = node.next
+        }
+        return list
+    }
+
 }
