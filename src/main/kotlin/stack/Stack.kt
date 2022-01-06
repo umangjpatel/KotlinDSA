@@ -23,4 +23,12 @@ class Stack<T> : StackInterface<T> {
 
     override fun peek(): T? = storage.lastOrNull()
 
+    override fun toString(): String =
+        if (isEmpty()) "Empty stack"
+        else buildString {
+            appendLine("----top----")
+            storage.asReversed().forEach(::appendLine)
+            appendLine("-----------")
+        }
+
 }
