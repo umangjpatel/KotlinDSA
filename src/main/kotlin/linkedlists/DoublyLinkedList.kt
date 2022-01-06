@@ -56,4 +56,39 @@ class DoublyLinkedList<T> {
         size++
         return this
     }
+
+    fun pop(): T? {
+        if (!isEmpty())
+            size--
+        val result = head?.value
+        head = head?.next
+        head?.prev = null
+        if (isEmpty())
+            tail = null
+        return result
+    }
+
+    fun removeLast(): T? {
+        if (isEmpty())
+            return null
+        val result = tail?.value
+        tail = tail?.prev
+        tail?.next = null
+        size--
+        return result
+    }
+
+    fun removeAt(index: Int): T? {
+        if (index < 0 || index >= this.size)
+            return null
+        if (index == 0)
+            return pop()
+        else if (index == this.size - 1)
+            return removeLast()
+        val node = nodeAt(index = index) ?: return null
+        node.prev?.next = node.next
+        node.next?.prev = node.prev
+        size--
+        return node.value
+    }
 }
