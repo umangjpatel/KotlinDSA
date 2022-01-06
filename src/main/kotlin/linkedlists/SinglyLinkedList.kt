@@ -50,4 +50,46 @@ class SinglyLinkedList<T> {
         size++
         return this
     }
+
+    fun pop(): T? {
+        if (!isEmpty())
+            size--
+        val result = head?.value
+        head = head?.next
+        if (isEmpty())
+            tail = null
+        return result
+    }
+
+    fun removeLast(): T? {
+        var current = head ?: return null
+        var prev = current
+        var next = current.next
+
+        while (next != null) {
+            prev = current
+            current = next
+            next = current.next
+        }
+
+        val result = current.value
+        tail = prev
+        tail?.next = null
+        size--
+        return result
+    }
+
+    fun removeAt(index: Int): T? {
+        if (index == 0)
+            return pop()
+        val node = nodeAt(index = index - 1) ?: return null
+        if (node.next == null)
+            return null
+        val result = node.next?.value
+        node.next = node.next?.next
+        if (index == this.size - 1)
+            tail = node
+        size--
+        return result
+    }
 }
