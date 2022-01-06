@@ -1,5 +1,0 @@
-# LinkedLists
-
-## Contents
-Coming soon
-
