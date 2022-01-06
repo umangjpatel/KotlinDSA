@@ -1,3 +1,5 @@
+@file:Suppress("DuplicatedCode")
+
 package linkedlists
 
 import linkedlists.SinglyNode as Node

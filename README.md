@@ -6,7 +6,7 @@ Various data structures and algorithms written in Kotlin programming language.
 ## Contents
 * Linked Lists
   * Singly linked list
-  * Doubly linked list (in dev)
+  * Doubly linked list
 
 ## Why Kotlin ?
 * Modern, concise and safe programming language
