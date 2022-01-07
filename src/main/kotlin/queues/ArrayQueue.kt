@@ -1,4 +1,4 @@
-package queue
+package queues
 
 class ArrayQueue<T>: Queue<T> {
 

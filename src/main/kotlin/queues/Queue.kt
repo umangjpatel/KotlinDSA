@@ -1,4 +1,4 @@
-package queue
+package queues
 
 interface Queue<E> {
     val count: Int
