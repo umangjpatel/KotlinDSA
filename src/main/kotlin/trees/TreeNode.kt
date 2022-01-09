@@ -2,7 +2,7 @@ package trees
 
 import queues.LinkedQueue
 
-private typealias Visitor<T> = (TreeNode<T>) -> Unit
+private typealias TreeVisitor<T> = (TreeNode<T>) -> Unit
 
 class TreeNode<T>(var value: T) {
     private val children: MutableList<TreeNode<T>> = mutableListOf()
@@ -11,14 +11,14 @@ class TreeNode<T>(var value: T) {
         children.add(child)
     }
 
-    fun traverseDepthWise(visit: Visitor<T>) {
+    fun traverseDepthWise(visit: TreeVisitor<T>) {
         visit(this)
         children.forEach {
             it.traverseDepthWise(visit)
         }
     }
 
-    fun traverseLevelWise(visit: Visitor<T>) {
+    fun traverseLevelWise(visit: TreeVisitor<T>) {
         val queue = LinkedQueue<TreeNode<T>>()
         queue.enqueue(this)
         var node = queue.dequeue()
