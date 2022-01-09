@@ -3,10 +3,10 @@ package queues
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class LinkedQueueTest {
+internal class StackQueueTest {
     @Test
     fun testGetCount() {
-        val queue = LinkedQueue<Int>()
+        val queue = StackQueue<Int>()
         assertEquals(queue.count, 0)
         queue.enqueue(1)
         assertEquals(queue.count, 1)
@@ -24,7 +24,7 @@ internal class LinkedQueueTest {
 
     @Test
     fun testEnqueue() {
-        val queue = LinkedQueue<Int>()
+        val queue = StackQueue<Int>()
         assertEquals(queue.toString(), "Empty queue")
         queue.enqueue(1)
         assertEquals(queue.toString(), "1")
@@ -36,7 +36,7 @@ internal class LinkedQueueTest {
 
     @Test
     fun testDequeue() {
-        val queue = LinkedQueue<Int>().apply {
+        val queue = StackQueue<Int>().apply {
             enqueue(1)
             enqueue(2)
             enqueue(3)
@@ -54,7 +54,7 @@ internal class LinkedQueueTest {
 
     @Test
     fun testFirst() {
-        val queue = LinkedQueue<Int>()
+        val queue = StackQueue<Int>()
         assertNull(queue.first())
         queue.enqueue(1)
         assertEquals(queue.first(), 1)
@@ -68,7 +68,7 @@ internal class LinkedQueueTest {
 
     @Test
     fun testToString() {
-        val queue = LinkedQueue<Int>()
+        val queue = StackQueue<Int>()
         assertEquals(queue.toString(), "Empty queue")
         queue.enqueue(1)
         assertEquals(queue.toString(), "1")

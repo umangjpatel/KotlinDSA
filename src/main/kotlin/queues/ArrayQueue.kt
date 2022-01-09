@@ -17,5 +17,5 @@ class ArrayQueue<T>: Queue<T> {
 
     override fun toString(): String =
         if (isEmpty()) "Empty queue"
-        else storage.joinToString(separator = ", ")
+        else storage.joinToString(separator = ",")
 }

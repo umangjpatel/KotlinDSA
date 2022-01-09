@@ -31,9 +31,9 @@ internal class ArrayQueueTest {
         queue.enqueue(1)
         assertEquals(queue.toString(), "1")
         queue.enqueue(2)
-        assertEquals(queue.toString(), "1, 2")
+        assertEquals(queue.toString(), "1,2")
         queue.enqueue(3)
-        assertEquals(queue.toString(), "1, 2, 3")
+        assertEquals(queue.toString(), "1,2,3")
     }
 
     @Test
@@ -43,9 +43,9 @@ internal class ArrayQueueTest {
             enqueue(2)
             enqueue(3)
         }
-        assertEquals(queue.toString(), "1, 2, 3")
+        assertEquals(queue.toString(), "1,2,3")
         assertEquals(queue.dequeue(), 1)
-        assertEquals(queue.toString(), "2, 3")
+        assertEquals(queue.toString(), "2,3")
         assertEquals(queue.dequeue(), 2)
         assertEquals(queue.toString(), "3")
         assertEquals(queue.dequeue(), 3)
@@ -75,7 +75,7 @@ internal class ArrayQueueTest {
         queue.enqueue(1)
         assertEquals(queue.toString(), "1")
         queue.enqueue(2)
-        assertEquals(queue.toString(), "1, 2")
+        assertEquals(queue.toString(), "1,2")
         queue.dequeue()
         assertEquals(queue.toString(), "2")
         queue.dequeue()

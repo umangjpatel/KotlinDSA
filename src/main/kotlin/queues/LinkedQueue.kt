@@ -19,5 +19,5 @@ class LinkedQueue<T> : Queue<T> {
 
     override fun toString(): String =
         if (isEmpty()) "Empty queue"
-        else storage.toString().replace(" <->", ",")
+        else storage.toString().replace(" <-> ", ",")
 }
