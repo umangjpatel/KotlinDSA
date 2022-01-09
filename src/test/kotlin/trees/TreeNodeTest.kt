@@ -1,9 +1,9 @@
 package trees
 
-import jdk.nashorn.internal.ir.annotations.Ignore
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import kotlin.test.Ignore
 
 internal class TreeNodeTest {
 
