@@ -40,14 +40,6 @@ class StackQueue<T> : Queue<T> {
 
     override fun toString(): String {
         if (isEmpty()) return "Empty queue"
-        // 1, 2, 3, 4
-        // enqueue all in right
-        // first then move elements from right to left
-        // left will look like : 4 -> 3 -> 2 -> 1 (bottom to top order)
-        // right will be empty
-        // consider more enqueue ops
-        // left :4 -> 3 -> 2 -> 1 and right : 5 -> 6
-        // correct order should be : 1, 2, 3, 4, 5, 6
         val leftStackString =
             if (leftStack.isEmpty()) ""
             else leftStack.toString()
