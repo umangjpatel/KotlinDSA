@@ -8,6 +8,10 @@ Various data structures and algorithms written in Kotlin programming language.
   * Singly linked list
   * Doubly linked list
 * Stack
+* Queues
+  * Array-based queue
+  * Linked list based queue
+  * Stack-based queue
 
 ## Why Kotlin ?
 * Modern, concise and safe programming language
