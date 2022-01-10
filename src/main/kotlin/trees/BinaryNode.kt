@@ -6,6 +6,9 @@ class BinaryNode<T>(var value: T) {
     var leftChild: BinaryNode<T>? = null
     var rightChild: BinaryNode<T>? = null
 
+    val min: BinaryNode<T>
+        get() = leftChild?.min ?: this
+
     override fun toString(): String = diagram(this)
 
     private fun diagram(
